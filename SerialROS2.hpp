@@ -2,12 +2,13 @@
 #define _SERIALROS2
 
 #define MAXIMUM_BUFFER_SIZE  32
+#define EOP  'd'
 
 #include "mbed.h"
 #include <chrono>
 
 struct DataRecv{
-    int32_t num_recv;
+    int32_t num_recv = 0;
     char data[MAXIMUM_BUFFER_SIZE] = {0};
 };
 

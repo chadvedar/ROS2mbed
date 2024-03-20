@@ -54,8 +54,8 @@ DataRecv SerialROS2::recv(){
     n_recv = pc.read(temp, 1);
 
     if (n_recv > 0){
-        while (temp[0] != 'd'){
-            if (n_recv>0 && temp[0] != 'd'){
+        while (temp[0] != EOP){
+            if (n_recv>0 && temp[0] != EOP){
                 data_recv.data[data_recv.num_recv] = temp[0];
                 data_recv.num_recv += n_recv;
             }
