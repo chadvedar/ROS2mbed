@@ -48,7 +48,23 @@ bool SerialROS2::init(){
 
 DataRecv SerialROS2::recv(){
     DataRecv data_recv;
-    data_recv.num_recv = pc.read(&data_recv.data, MAXIMUM_BUFFER_SIZE);
+    int n_recv = 0;
+    char temp[1] = {0};
+
+    n_recv = pc.read(temp, 1);
+
+    if (n_recv > 0){
+        while (temp[0] != 'd'){
+            if (n_recv>0 && temp[0] != 'd'){
+                data_recv.data[data_recv.num_recv] = temp[0];
+                data_recv.num_recv += n_recv;
+            }
+            n_recv = pc.read(temp, 1);
+        }
+    }
+
+    //if(data_recv.num_recv > 1) printf("recv : %s\n", data_recv.data);
+    
     return data_recv;
 }
 
